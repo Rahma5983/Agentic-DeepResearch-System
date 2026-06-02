@@ -34,13 +34,14 @@ The core system combines a dual-index hybrid search core (using keyword BM25 alo
 Follow these exact steps from a fresh repository clone to build your environment:
 
 ### 1. Set Up a Virtual Environment
+
 Open your standard terminal or PowerShell screen in the project's root folder and execute:
+
 ```powershell
 python -m venv venv
 .\venv\Scripts\activate
-
-### 2. Install Project Requirements
+2. Install Project Requirements
 Install the locked framework dependencies from the local tracker file:
 
-```powershell
+PowerShell
 pip install -r requirements.txt
