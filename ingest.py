@@ -29,7 +29,6 @@ def download_paper(arxiv_id, title_hint, output_dir="data/raw_pdfs"):
         results_generator = client.results(search)
         paper = next(results_generator)
         
-        # In arxiv v4.0.0+, download is completed via native urlretrieve using paper.pdf_url
         print(f"Downloading PDF for: '{paper.title}'...")
         urlretrieve(paper.pdf_url, pdf_path)
         return pdf_path
