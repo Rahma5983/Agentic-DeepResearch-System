@@ -1,47 +1,40 @@
 # Agentic Deep-Research Pipeline: Modular Ablation Study
 
-This repository contains a production-ready, modular Deep-Research Agent architecture designed to automatically ingest, process, index, and verify highly technical literature from the agentic computing domain (2024–2026). 
+This repository contains an autonomous research agent system built to ingest, process, index, and verify complex research literature from the agentic computing domain. 
 
-The core system features a dual-index hybrid lexical-dense retrieval engine, task planning loops, and an automated post-generation citation verification shield to prevent hallucinated references. To evaluate the engineering value of each module, the system includes a complete evaluation pipeline that runs across 7 distinct ablation configurations against a 30-question test benchmark.
+The core system combines a dual-index hybrid search core (using keyword BM25 alongside dense vector similarity), structural text planning loops, and an automated verification shield to eliminate hallucinated sources. To measure the value of each part, an evaluation script runs across 7 independent ablation setups against a 30-question test bank.
 
 ---
 
 ## 📁 Repository Structure
 
-```text
-Agentic-DeepResearch-System/
-│
-├── data/
-│   ├── raw_pdfs/           # PDF documents cached directly from arXiv
-│   └── processed_txt/      # Cleaned, page-by-page processed text chunks
-│
-├── eval/
-│   └── questions.jsonl     # The provided 30-question benchmark dataset
-│
-├── predictions/            # Evaluation output tracks (1 line of JSON per question)
-│   ├── full_agent.jsonl    # Complete system track
-│   ├── baseline.jsonl      # Standard pipeline baseline
-│   ├── no_hybrid.jsonl     # Ablation: Pure dense retrieval only
-│   ├── no_planner.jsonl    # Ablation: Task planner disabled
-│   ├── no_reflector.jsonl  # Ablation: Reflective layer disabled
-│   ├── no_reranker.jsonl   # Ablation: Multi-stage reranker disabled
-│   └── no_verifier.jsonl   # Ablation: Citation verification shield disabled
-│
-├── .gitignore              # Project exclusions (excludes venv/ and cache logs)
-├── ingest.py               # Document collection and extraction pipeline
-├── main.py                 # Core agentic engine and automated evaluation loop
-├── requirements.txt        # Production library dependencies
-└── Technical Report - DTU.pdf  # Final academic technical report
+* **data/**
+  * **raw_pdfs/** : PDF documents collected directly from arXiv.
+  * **processed_txt/** : Cleaned, paragraph-by-paragraph text segments.
+* **eval/**
+  * **questions.jsonl** : The provided 30-question benchmark dataset.
+* **predictions/** : Evaluation outputs containing 1 line of JSON per question.
+  * `full_agent.jsonl` : Complete, unbroken pipeline track.
+  * `baseline.jsonl` : Standard lookup baseline.
+  * `no_hybrid.jsonl` : Ablation track using dense search only.
+  * `no_planner.jsonl` : Ablation track with planning layers turned off.
+  * `no_reflector.jsonl` : Ablation track with reflective modules turned off.
+  * `no_reranker.jsonl` : Ablation track with the paragraph reranker turned off.
+  * `no_verifier.jsonl` : Ablation track with the fact-checking gate turned off.
+* **.gitignore** : Excludes local caching files, bytecodes, and the venv folder.
+* **ingest.py** : Automated downloading, parsing, and cleaning pipeline.
+* **main.py** : Main engine managing the retrieval loops and multi-track evaluation.
+* **requirements.txt** : Declared production package versions.
+* **Technical Report - DTU.pdf** : Final academic submission document.
 
-# 🛠️ Installation & SetupFollow these steps from a fresh clone to set up your local environment:1. Initialize a Virtual EnvironmentOpen your terminal or PowerShell window in the project root folder and run:PowerShellpython -m venv venv
-.\venv\Scripts\activate
-2. Install DependenciesInstall all exact required package versions tracking the core pipeline requirements:PowerShellpip install -r requirements.txt
-# ⚙️ Reproducing Results (Single-Command Execution)To build the corpus, construct the dual-index layers, process all 30 benchmark questions across every ablation setup, and reproduce the metrics published in the technical report, run the single command:PowerShellpython main.py
-What happens under the hood:main.py triggers the text processor to scan data/processed_txt/.It initialises a local BM25 index alongside a dense semantic similarity matrix utilizing a CPU-bound all-MiniLM-L6-v2 embedding engine.It iterates through the 30 queries in eval/questions.jsonl under 7 programmatic states, applying structural output length constraints (factoid, comparative, survey).It outputs 7 distinct formatted files into the predictions/ directory matching the exact submission criteria.📊 Summary of Empirical ResultsSystem Configuration / VariantRow CountCitation F1-ScoreLength Rule ComplianceFake Citations Blockedfull_agent30 / 3098.2%100%0 (Perfect)baseline30 / 3064.1%100%0no_planner30 / 3085.5%100%0no_hybrid30 / 3071.0%100%0no_reranker30 / 3089.1%100%0no_reflector30 / 3082.4%100%0no_verifier30 / 3041.3%100%+30 Injected📝 Submission Format ComplianceEvery generated track inside predictions/ outputs valid JSON lines matching the precise requirements of the grading script:JSON{"id": "q01", "answer": "<system_response_text>", "cited_papers": ["2408.00001"]}
-id: Corresponds directly to the target question entry.answer: Plain-text response governed by word/sentence boundary scaffolding.cited_papers: Flattened array containing clean, versionless arXiv identification strings used as evidence.
-### 🚀 Save and Push to GitHub:
-Once you save this into your root folder, you can push it online by running these quick commands in your PowerShell window:
+---
+
+## 🛠️ Installation and Setup
+
+Follow these exact steps from a fresh repository clone to build your environment:
+
+### 1. Set Up a Virtual Environment
+Open your standard terminal or PowerShell screen in the project's root folder and execute:
 ```powershell
-git add README.md
-git commit -m "Add complete documentation storefront to README markdown"
-git push origin main
+python -m venv venv
+.\venv\Scripts\activate
