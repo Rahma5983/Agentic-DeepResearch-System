@@ -41,5 +41,7 @@ python -m venv venv
 
 ---
 
-2. Install Project Requirements
+## 2. Install Project Requirements
 Install the locked framework dependencies from the local tracker file:
+
+pip install -r requirements.txt
