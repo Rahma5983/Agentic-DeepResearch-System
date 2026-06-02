@@ -39,9 +39,6 @@ Open your standard terminal or PowerShell screen in the project's root folder an
 python -m venv venv
 .\venv\Scripts\activate
 
----
-
-## 2. Install Project Requirements
+### 2. Install Project Requirements
 Install the locked framework dependencies from the local tracker file:
-
 pip install -r requirements.txt
