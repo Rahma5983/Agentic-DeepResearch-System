@@ -1,0 +1,18 @@
+# Ignore the heavy virtual environment folder completely
+venv/
+ENV/
+env/
+
+# Ignore Python compilation caches and bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore local machine learning model cache logs and weights
+.cache/
+.huggingface/
+
+# Ignore system-specific files (like Windows layout caches)
+Thumbs.db
+Desktop.ini
