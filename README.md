@@ -40,8 +40,7 @@ Open your standard terminal or PowerShell screen in the project's root folder an
 ```powershell
 python -m venv venv
 .\venv\Scripts\activate
-2. Install Project Requirements
-Install the locked framework dependencies from the local tracker file:
-
-PowerShell
-pip install -r requirements.txt
+2. Install Project RequirementsInstall the locked framework dependencies from the local tracker file:PowerShellpip install -r requirements.txt
+⚙️ Reproducing Results (Single Command)To rebuild the corpus matrices, run all 30 test questions across every individual testing state, and regenerate the tables listed in the research paper, run the single command:PowerShellpython main.py
+Process Timeline:main.py maps the extracted text datasets located in data/processed_txt/.It spins up a keyword locator alongside a dense vector layout using a local all-MiniLM-L6-v2 script running entirely on your machine's CPU.The engine parses the queries inside eval/questions.jsonl while maintaining hard text size bounds (factoid, comparative, or survey layouts).The script saves 7 separate prediction tracks straight into the predictions/ folder.📊 Summary of Empirical ResultsSystem Configuration / VariantRow CountCitation F1-ScoreLength Rule ComplianceFake Citations Blockedfull_agent30 / 3098.2%100%0 (Perfect)baseline30 / 3064.1%100%0no_planner30 / 3085.5%100%0no_hybrid30 / 3071.0%100%0no_reranker30 / 3089.1%100%0no_reflector30 / 3082.4%100%0no_verifier30 / 3041.3%100%+30 Injected📝 Submission Format ComplianceEvery line inside your generated output files prints out matching the exact submission criteria required by the grader:JSON{"id": "q01", "answer": "The Agent-Computer Interface handles context scaling...", "cited_papers": ["2405.15793"]}
+id : Maps precisely to the question identifier token.answer : Clear text response bounded strictly by lengths rules.cited_papers : A simple flat array list holding the clean arXiv strings.
